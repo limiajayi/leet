@@ -81,13 +81,29 @@ class Solution:
             median = (numsArray[(len(numsArray) // 2) - 1] + numsArray[(len(numsArray) // 2)]) / 2
         
         return median
-
-# listOne = ListNode(2, ListNode(4, ListNode(3)))
-# listTwo= ListNode(5, ListNode(6, ListNode(4)))
-
-# print(Solution.addTwoNumbers(listOne, listTwo))
     
-# print(Solution.lengthOfLongestSubstring(""))
+    def is_palindrome(my_string):
+        if not my_string:
+            return True
+        if my_string[0] != my_string[-1]:
+            return False
+        else:
+            return Solution.is_palindrome(my_string[1:-1])
+    
+    def longestPalindrome(s):
+        n = len(s)
+        
+        check = Solution.is_palindrome(s)
+        j = 0
+        
+        while check == False and j < n:
+            if s.count(s[j]) > 1 or n == 2:
+                s = s[j:-1]
+                n = len(s)
+                check = Solution.is_palindrome(s)
+            else:
+                j += 1
+                
+        return s
+    
 
-
-print(Solution.findMedianSortedArrays([1, 2], [3, 4]))
