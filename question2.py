@@ -106,4 +106,49 @@ class Solution:
                 
         return s
     
+    def convert(s, numRows):
+        
+        twoDArray = [[''] * (1000) for _ in range(numRows)]
+        result = ""
+        
+        c = 0
+        r = 0
+        if numRows == 1:
+            return s
+        
+        while r < numRows and c < len(twoDArray[0]) and len(s) > 0:
+            
+            twoDArray[r][c] = s[0]
+            s = s[1:]
+            
+            if r + 1 == numRows and len(s) > 0:
+                r = numRows - 2
+                c += 1
+                
+                while r > 0 and len(s) > 0:
+                    twoDArray[r][c] = s[0]
+                    s = s[1:]
+                    
+                    c += 1
+                    r -= 1
+                
+                if len(s) > 0:
+                    twoDArray[r][c] = s[0]
+                    s = s[1:]
+                    
+            r += 1
+        
+        
+        for i in range(len(twoDArray)):
+            for j in range(len(twoDArray[0])):
+                result += twoDArray[i][j]
+        
+        return result
+    
+    
+    
+    
 
+arr = Solution.convert("PAYPALISHIRING", 2)
+
+print(arr)
