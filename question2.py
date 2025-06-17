@@ -145,10 +145,39 @@ class Solution:
         
         return result
     
+    def reverse(x):
+        #reverse a string such that it is always within the range of [-2^31, 2^31 - 1]
+        new = x #save the old number
+        
+        #if it is 0 then return 0
+        if x == 0:
+            return 0
+        
+        #if less than 0, make it positive by adding it twice to itself
+        if x < 0:
+            x -= 2 * x
+            
+        #convert to string and reverse it
+        represent = str(x)[::-1]
+        
+        #remove starting zeroes
+        while represent[0] == '0':
+            represent = represent[1:]
+        
+        #if new was negative then add the negative to the front
+        if  new < 0:
+            represent = int('-' + represent)
+        represent = int(represent)
+        
+        #return if not in the range
+        if represent < -2**31 or represent > 2**31 - 1:
+            return 0
+        
+        return represent
     
     
     
 
-arr = Solution.convert("PAYPALISHIRING", 2)
+arr = Solution.reverse(120)
 
 print(arr)
