@@ -174,10 +174,57 @@ class Solution:
             return 0
         
         return represent
+
+    
+    def myAtoi(s):
+        negative = False #assume always positive 
+        s = s.strip() #remove white space
+        
+        #if 0 immediately return 0
+        if s == "0" or s == "":
+            return 0
+        
+        #if negative let negative = True
+        if s[0] == "-":
+            negative = True
+            s = s[1:]
+        elif s[0] == "+":
+            s = s[1:]
+            
+        indicator = s[0].isdigit()
+        new = ""
+        
+        while indicator == True and s != "":
+            new += s[0]
+            s = s[1:]
+            if s != "":
+                indicator = s[0].isdigit()
+                
+        if len(new) > 1:
+            while new[0] == "0" and len(new) > 1:
+                new = new[1:]
+                
+        if negative == True:
+            new = "-" + new
+            
+        if new == "" or new == "-":
+            return 0
+        elif int(new) < -2**31:
+            return -2**31
+        elif int(new) > 2**31 - 1:
+            return 2**31 - 1
+            
+        return int(new)
+    
+    def is_palindrome_int(x):
+        my_string = str(x)
+        opp = "".join(reversed(my_string))
+        
+        return opp == my_string
     
     
     
 
-arr = Solution.reverse(120)
+arr = Solution.is_palindrome_int(121)
 
 print(arr)
