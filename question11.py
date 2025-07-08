@@ -54,5 +54,31 @@ class Solution:
                 num -= dict[letter]
                 
         return romans
+    
+    def longestCommonPrefix(strs):
+        """Find the longest common prefix amongst an array of strings"""
+        if not strs:
+            #if the array is empty just return an empty string
+            return ""
         
+        #let the initial prefix be the first string
+        prefix = strs[0]
         
+        #from the second string till the last
+        for i in range(1, len(strs)):
+            
+            current = strs[i] #current string being compared with the first
+            equal = len(prefix) == len(current) #conditional that helps with the loop
+            
+            while equal == False or prefix != current: 
+                #while the current string and prefix are not equal in length or prefix is not equal to the current string
+                #reduce the longer string by 1 until they're equal in length and in value
+                if len(prefix) > len(current):
+                    prefix = prefix[:-1]
+                else:
+                    current = current[:-1]
+                
+                equal = len(prefix) == len(current)
+        
+        #return the longest common prefix
+        return prefix
