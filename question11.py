@@ -82,3 +82,46 @@ class Solution:
         
         #return the longest common prefix
         return prefix
+    
+    def twoSum(nums, target):
+        array = []
+    
+        for i in range(0, len(nums) - 1):
+        
+            for j in range(i + 1, len(nums)):
+        
+                if (nums[i] + nums[j]) == target:
+                    array.append([nums[i], nums[j]])
+                
+        return array
+    
+    def threeSum(nums):
+        
+        arrayOfArrays = []
+        new = []
+        
+        for number in nums:
+            
+            nums.remove(number)
+            minus = number * -1
+            
+            if len(Solution.twoSum(nums, minus)) != 0:
+                
+                targets = Solution.twoSum(nums, minus)
+                
+                for i in range(len(targets)):
+                    targets[i].append(number)
+                    arrayOfArrays.append(targets[i])
+                    
+            
+            nums.append(number)
+        
+        for arrays in arrayOfArrays:
+            if arrays not in new:
+                new.append(arrays)
+                
+        return new
+    
+    
+
+print(Solution.threeSum([-1,0,1,2,-1,-4]))
