@@ -84,43 +84,36 @@ class Solution:
         return prefix
     
     def twoSum(nums, target):
-        array = []
+        arrayOfArrays = []
     
-        for i in range(0, len(nums) - 1):
-        
+        for i in range(len(nums)):
             for j in range(i + 1, len(nums)):
         
                 if (nums[i] + nums[j]) == target:
-                    array.append([nums[i], nums[j]])
+                    arrayOfArrays.append([nums[i], nums[j]])
                 
-        return array
+        return arrayOfArrays
     
     def threeSum(nums):
         
         arrayOfArrays = []
-        new = []
+        memory = []
         
-        for number in nums:
+        for i in range(len(nums)):
             
-            nums.remove(number)
-            minus = number * -1
-            
-            if len(Solution.twoSum(nums, minus)) != 0:
+            if nums[i] not in memory:
+                minus = nums[i] * -1
+                new = nums[i+1:]
+                targets = Solution.twoSum(new, minus)
                 
-                targets = Solution.twoSum(nums, minus)
-                
-                for i in range(len(targets)):
-                    targets[i].append(number)
-                    arrayOfArrays.append(targets[i])
-                    
+                for j in range(len(targets)):
+                    targets[j].append(nums[i])
+                    arrayOfArrays.append(targets[j])
             
-            nums.append(number)
+            memory.append(nums[i])
+            
         
-        for arrays in arrayOfArrays:
-            if arrays not in new:
-                new.append(arrays)
-                
-        return new
+        return arrayOfArrays
     
     
 
