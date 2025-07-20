@@ -150,3 +150,36 @@ class Solution:
             return ans
 
         return helper("", digits)
+    
+    def removeNthFromEnd(head: ListNode, n: int):
+        current = head
+        target = head
+        prev = head
+        counter = 0
+        
+        if current.next == None and n == 1:
+            head = ListNode()
+        
+        
+        while current.next != None:
+            current = current.next
+            counter += 1
+            
+            if counter >= n:
+                target = target.next
+            
+            if counter >= n + 1:
+                prev = prev.next
+                
+        prev.next = target.next
+        target = None
+        
+        new = head
+        arr = []
+        arr.append(new.val)
+        
+        while new.next != None:
+            new = new.next
+            arr.append(new.val)
+            
+        return arr
