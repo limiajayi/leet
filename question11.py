@@ -183,3 +183,47 @@ class Solution:
             arr.append(new.val)
             
         return arr
+    
+    def isValid(s):
+        chars = '([{'
+        others = ']})'
+        track = []
+        stack = []
+        unmatches = 0
+        otherStack = []
+        arr = [var for var in s]
+        value = False
+        
+        if arr[len(s) - 1] in chars:
+            return False
+        
+        for i in range(len(s)):
+            #initially check if the character is either ( or { or [
+            if arr[i] in chars:
+                stack.append(arr[i])
+                track.append(arr[i])
+            elif arr[i] in others:
+                otherStack.append(arr[i])
+                
+                if len(track) > 0:
+                    soth = arr[i]
+                    match arr[i]:
+                            case ')':
+                                value = True if track[-1] == '(' else False
+                            case '}':
+                                value = True if track[-1] == '{' else False
+                            case ']':
+                                value = True if track[-1] == '[' else False
+                    if value == False:
+                        unmatches += 1
+                    track.pop()
+                            
+
+        return (len(stack) == len(otherStack)) and value and unmatches == 0
+    
+    
+
+print(Solution.isValid("([])"))
+
+    
+    
