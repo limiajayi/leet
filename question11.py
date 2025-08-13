@@ -221,9 +221,80 @@ class Solution:
 
         return (len(stack) == len(otherStack)) and value and unmatches == 0
     
-    
+    def mergeTwoLists(list1: ListNode, list2: ListNode):
+        curr1 = list1
+        curr2 = list2
+        newList = ListNode()
+        curr3 = newList
+        
+        #checking both lists
+        
+        #if list1 is empty and list2 is not empty
+        if curr2 != None and curr1 == None:
+            while curr2 != None:
+                curr3.next = ListNode(curr2.val, None)
+                curr3 = curr3.next
+                curr2 = curr2.next
+            newList = newList.next
+            return newList
+                
+        #if list1 is not empty and list2 is empty
+        if curr1 != None and curr2 == None:
+            while curr1 != None:
+                curr3.next = ListNode(curr1.val, None)
+                curr3 = curr3.next
+                curr1 = curr1.next
+            newList = newList.next
+            return newList
+        
+        #if they're both empty
+        if curr1 == None and curr2 == None:
+            newList = newList.next
+            return newList
+        
+        #if they're both non-empty
+        while curr1 != None and curr2 != None:
+            if curr1.val < curr2.val:
+                curr3.next = ListNode(curr1.val, None)
+                curr3 = curr3.next
+                curr1 = curr1.next
+            elif curr1.val > curr2.val:
+                curr3.next = ListNode(curr2.val, None)
+                curr3 = curr3.next
+                curr2 = curr2.next
+            else:
+                curr3.next = ListNode(curr1.val, ListNode(curr2.val, None))
+                curr3 = curr3.next.next
+                
+                curr1 = curr1.next
+                curr2 = curr2.next
+                
+        #if list2 is longer than list1
+        if curr1 == None and curr2 != None:
+            while curr2 != None:
+                curr3.next = ListNode(curr2.val, None)
+                curr3 = curr3.next
+                curr2 = curr2.next
+                
+        #if list1 is longer than list2
+        if curr2 == None and curr1 != None:
+            while curr1 != None:
+                curr3.next = ListNode(curr1.val, None)
+                curr3 = curr3.next
+                curr1 = curr1.next
+        
+        
+        newList = newList.next
+        return newList
+        
+        
 
-print(Solution.isValid("([])"))
+# arr1 = ListNode(1, ListNode(2, ListNode(3, ListNode(4, None))))
+# arr2 = ListNode(1, ListNode(3, ListNode(4, ListNode(5, ListNode(6, None)))))
 
-    
-    
+
+# curr3 = Solution.mergeTwoLists(arr2, arr1)
+
+# while curr3 != None:
+#     print(curr3.val)
+#     curr3 = curr3.next
