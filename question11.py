@@ -286,12 +286,46 @@ class Solution:
         
         newList = newList.next
         return newList
+    
+    #we have an array that keeps up with nodes
+    def hasCycle(head):
+        #linked list question
+        arr = []
+        pos = -1
         
-        
+        curr = head
+        #this is to break normal lists
+        while curr != None:
+            #if current is in the array, 
+            # loop through the array to find the exact index
+            #where the loop starts
+            if curr in arr:
+                for i in range(len(arr)):
+                    if arr[i] == curr:
+                        pos = i
+                #break to prevent an infinite loop
+                break
+            
+            arr.append(curr)
+            
+            curr = curr.next 
+            
+        if pos == -1:
+            return False
+        return True
+
+
+
+
 
 # arr1 = ListNode(1, ListNode(2, ListNode(3, ListNode(4, None))))
 # arr2 = ListNode(1, ListNode(3, ListNode(4, ListNode(5, ListNode(6, None)))))
 
+value2 = ListNode(2, None)
+value1 = ListNode(1, value2)
+value2.next = value1
+
+print(Solution.hasCycle(value1))
 
 # curr3 = Solution.mergeTwoLists(arr2, arr1)
 
