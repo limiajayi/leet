@@ -1,7 +1,14 @@
+import heapq
 class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
+        
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 class Solution:
     def maxArea(height):
         if not height:
@@ -313,7 +320,76 @@ class Solution:
         if pos == -1:
             return False
         return True
+    
+    def isAnagram(self, s: str, t: str) -> bool:
+        #check if two strings s and t are anagrams
+        checkLength = len(s) == len(t)
+        if checkLength == False:
+            return checkLength
 
+        arr1 = [ind for ind in s]
+        arr2 = [ind for ind in t]
+        value = False
+
+        for i in range(len(arr1)):
+
+            if arr1[i] in arr2:
+                arr2.remove(arr1[i])
+                value = True
+
+        if len(arr2) == 0:
+            return True
+        return False
+    
+    
+    # im thinking add the root initially
+    # remove the remove
+    # swap the left and right
+    # add left and right back in queue
+    # repeat
+    def invertTree(root: TreeNode):
+        empty = []
+        empty.append(root)
+        
+        while len(empty) > 0:
+            initial: TreeNode = empty.pop(0)
+            print(initial.val)
+            
+            if initial == None:
+                break
+            
+            if not initial.left and not initial.right:
+                break
+            
+            #if there is only a left node
+            if initial.right == None:
+                temp = initial.left
+                initial.right = temp
+                initial.left = None
+                
+                empty.append(initial.right)
+                
+                #if there is only a right node
+            elif initial.left == None:
+                temp = initial.right
+                initial.left = temp
+                initial.right = None
+                empty.append(initial.left)
+            
+            #if there are left and right nodes
+            if initial.left != None and initial.right != None:
+                temp = initial.left
+                initial.left = initial.right
+                initial.right = temp
+                empty.append(initial.left)
+                empty.append(initial.right)
+                
+        return root
+        
+
+treeRoot: TreeNode = TreeNode(2, TreeNode(3, TreeNode(1, None, None), None), None)
+
+print(Solution.invertTree(treeRoot).right.right.val)
 
 
 
@@ -321,11 +397,11 @@ class Solution:
 # arr1 = ListNode(1, ListNode(2, ListNode(3, ListNode(4, None))))
 # arr2 = ListNode(1, ListNode(3, ListNode(4, ListNode(5, ListNode(6, None)))))
 
-value2 = ListNode(2, None)
-value1 = ListNode(1, value2)
-value2.next = value1
+# value2 = ListNode(2, None)
+# value1 = ListNode(1, value2)
+# value2.next = value1
 
-print(Solution.hasCycle(value1))
+# print(Solution.hasCycle(value1))
 
 # curr3 = Solution.mergeTwoLists(arr2, arr1)
 
